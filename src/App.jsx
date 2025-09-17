@@ -20,7 +20,6 @@ function App() {
             <Route index element={<Home />} />
             <Route path='productos' element={<ProductListContainer />} />
             <Route path='productos/:id' element={<ProductDetail />} />
-            <Route path="productos/categoria/:categoria" element={<ProductListContainer />} />
 
             <Route path='Contacto' element={<Contacto />} />
             <Route path='/*' element={<Error />} />
