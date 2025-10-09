@@ -24,7 +24,7 @@ function ProductDetail () {
     return (
         <div className="card-detail">
             <h2>{producto.nombre}</h2>
-            <p>Color:{producto.color}</p>
+            <p>Color: {producto.color}</p>
             {producto.imagen && <img src={producto.imagen} alt={producto.nombre} />}
             <p>{producto.descripcion}</p>
             <h3>Precio: ${producto.precio}</h3>
