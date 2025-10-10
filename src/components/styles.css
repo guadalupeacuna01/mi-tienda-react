@@ -177,4 +177,22 @@ img { max-width: 100%; height: auto; display: block; }
     text-align: center;
  }
 
+/* estilo modo primavera */
 
+.card-primavera:hover {
+    border: 2px solid yellow;
+    background-color: #f9f5bf;
+}
+.p-primavera {
+    text-align: right;
+    font-size: 1rem;
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 0;
+
+}
+.p-primavera:hover {
+    color: lightgrey;
+    text-decoration: underline;
+}
