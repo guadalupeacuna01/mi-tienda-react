@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../main"
 import ItemCount from "./ItemCount";
+import "./styles.css";
 
 
 function ProductDetail () {
@@ -11,6 +12,7 @@ function ProductDetail () {
     const [producto, setProducto] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [agregado, setAgregado] = useState(false);
 
     // const db = getFirestore();
   
@@ -30,6 +32,10 @@ function ProductDetail () {
     if (!producto) return <p>Producto no encontrado</p>
     if (error) return <p>{error}</p>
 
+    const handleAdd = (cantidad) => {
+        setAgregado(true); };
+
+
     return (
         <div className="card-detail">
             <h2>{producto.nombre}</h2>
@@ -39,9 +45,9 @@ function ProductDetail () {
             <h3>Precio: ${producto.precio}</h3>
 
         {!agregado ? (
-            <ItemCount stock={Number(producto.stock ?? 0)} initial={1} onAdd={(hanldeAdd)} />
+            <ItemCount stock={Number(producto.stock ?? 0)} initial={1} onAdd={(handleAdd)} />
         ) : (
-        <p>✅ Producto agregado al carrito</p>
+        <p className="prod-agregado">Producto agregado al carrito </p>
         )}
         </div>
     );

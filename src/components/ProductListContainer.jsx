@@ -62,7 +62,6 @@ function ProductListContainer () {
             {productos.map( producto => ( 
                 <Product key={producto.id} {...producto} />
             ))}
-        
         </div>
         </section>
     )
