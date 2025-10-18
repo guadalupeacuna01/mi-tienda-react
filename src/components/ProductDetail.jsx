@@ -1,7 +1,8 @@
-import {useState, useEffect} from "react";
-import { useParams } from "react-router-dom";
+import {useState, useEffect, useContext} from "react";
+import { useParams, Link } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../main"
+import { CartContext } from "./CartContext";
 import ItemCount from "./ItemCount";
 import "./styles.css";
 
@@ -32,10 +33,13 @@ function ProductDetail () {
     if (!producto) return <p>Producto no encontrado</p>
     if (error) return <p>{error}</p>
 
+    const { addItem } = useContext(CartContext);
     const handleAdd = (cantidad) => {
+        addItem(producto, cantidad);
         setAgregado(true); };
 
-
+    
+    
     return (
         <div className="card-detail">
             <h2>{producto.nombre}</h2>
@@ -47,8 +51,14 @@ function ProductDetail () {
         {!agregado ? (
             <ItemCount stock={Number(producto.stock ?? 0)} initial={1} onAdd={(handleAdd)} />
         ) : (
+            <>
         <p className="prod-agregado">Producto agregado al carrito </p>
-        )}
+        <div className="detail-actions">
+          <Link to="/cart"><button>Ir al carrito</button></Link>
+          <Link to="/productos"><button>Seguir comprando</button></Link>
+        </div>
+        </>
+      )}
         </div>
     );
 }

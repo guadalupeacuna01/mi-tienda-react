@@ -21,11 +21,11 @@ function ItemCount({ stock = 0, initial = 1, onAdd }) {
     <div className="itemcount">
       <div>
         <button onClick={restar} disabled={cantidad <= 1}>−</button>
-        <span style={{ margin: "0 10px" }}>{cantidad}</span>
+        <span>{cantidad}</span>
         <button onClick={sumar} disabled={cantidad >= stock}>+</button>
       </div>
 
-      <button onClick={agregar} style={{ marginTop: "8px" }}>
+      <button onClick={agregar}>
         Agregar al carrito
       </button>
     </div>

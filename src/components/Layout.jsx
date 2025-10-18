@@ -10,7 +10,7 @@ function Layout() {
                 <ul className="lista">
                     <li><Link to={'/'}>Home</Link></li>
                     <li><Link to={'/productos'}>Productos</Link></li>
-                    <li><Link to={'/Contacto'}>Contacto</Link></li>
+                    <li><Link to={'/contacto'}>Contacto</Link></li>
                     <li><CartWidget /></li>
                 </ul>
             </nav>
