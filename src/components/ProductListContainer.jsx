@@ -1,5 +1,6 @@
-import { useState } from "react";
-import prodLibreria from "../productos";
+import { useState, useEffect } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../main";
 import Product from "./Product";
 import "./styles.css";
 
@@ -12,17 +13,39 @@ const categories = {
 };
 
 function ProductListContainer () {
-    const lista = prodLibreria
-
-    if (!lista.length) 
-        return <p>No hay productos</p>
-    
+    const [productos, setProductos] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(categories.TODO);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const filteredProducts = 
-    selectedCategory === categories.TODO
-    ? lista
-    : lista.filter(producto => producto.categoria === selectedCategory)
+    useEffect(() => {
+        // const db = getFirestore();
+        const itemsCollection = collection(db, "items");
+        
+        const consulta = 
+        selectedCategory === categories.TODO
+        ? itemsCollection :
+        query(itemsCollection, where("categoria", "==", selectedCategory));
+
+        setLoading(true);
+        getDocs(consulta)
+            .then((snapshot) => {
+                const data = snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
+                setProductos(data);
+            })
+            .catch((error) => {
+                setError("Error al cargar los productos");
+            })
+            .finally(() => setLoading(false));
+            }, [selectedCategory]);
+
+        if (loading) return <p>Cargando productos...</p>
+        if (error) return <p>{error}</p>
+        if (productos.length === 0) return <p>No hay productos disponibles</p>
+
 
     return (
     <section>
@@ -36,7 +59,7 @@ function ProductListContainer () {
         </div>
         
         <div className="card-container">
-            {filteredProducts.map( producto => ( 
+            {productos.map( producto => ( 
                 <Product key={producto.id} {...producto} />
             ))}
         
